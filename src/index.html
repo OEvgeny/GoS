@@ -1,0 +1,180 @@
+
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Main</title> 
+	<meta charset=utf-8>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="jquery.mobile-1.3.0/jquery.mobile-1.3.0.min.css" />
+	
+	<!-- Yandex -->
+	<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU&onload=init" type="text/javascript"></script>
+	
+	<script src="jquery.mobile-1.3.0/jquery-1.9.1.min.js"></script>
+	<script src="jquery.mobile-1.3.0/jquery.mobile-1.3.0.min.js"></script>
+	
+	<!-- Yandex initialization -->
+	<script type="text/javascript">
+    	var myMap;
+    	var lat;
+    	var lon;
+    	var errState;
+    	var myPlacemark;
+
+    	if (navigator.geolocation) {
+ 			var timeoutVal = 10 * 1000 * 1000;
+ 			navigator.geolocation.getCurrentPosition(
+ 				getGLPosition,
+  				catchError,
+  			{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+ 			);
+		}
+		else {
+ 			errState = true;
+		}
+
+		function getGLPosition(position) {
+			lat = position.coords.latitude;
+			lon = position.coords.longitude;
+		}
+
+		function getYMPosition() {
+			lat = ymaps.geolocation.latitude;
+ 			lon = ymaps.geolocation.longitude;
+		}
+
+		function displayPosition(position) {
+ 			alert("Широта: " + position.coords.latitude + ", Долгота: " + position.coords.longitude);
+		}
+
+
+		function displayError(error) {
+ 			var errors = {
+  				1: 'Нет прав доступа',
+  				2: 'Местоположение невозможно определить',
+  				3: 'Таймаут соединения'
+ 			};
+ 			//alert("Ошибка: " + errors[error.code]);
+		}
+
+		function catchError(error) {
+			errState = true;
+			displayError(error);
+		}
+
+    	function init(){
+    		if (errState == true)
+        		getYMPosition();
+
+        	myMap = new ymaps.Map ("map-obj", {
+            	center: [lat, lon],
+            	zoom: 16,
+        	});
+
+        	// Создание экземпляра элемента управления
+			myMap.controls.add(
+   				new ymaps.control.ZoomControl()
+			);
+
+			// Обращение к конструктору класса элемента
+			// управления по ключу
+			myMap.controls.add('typeSelector');
+        	
+        	myPlacemark = new ymaps.Placemark([lat, lon], {
+            	balloonContentHeader: "Вы здесь",
+            	balloonContent: ymaps.geolocation.city,
+            	balloonContentFooter: ymaps.geolocation.region
+			});
+        	myMap.geoObjects.add(myPlacemark);
+    }
+
+    function resizeMap() {
+    	document.getElementById('map-obj').style.height = ($.mobile.getScreenHeight() - 101)+'px';
+    }
+
+    $(document).delegate('.ui-map-page', 'pageshow', function () {
+    	resizeMap();
+	});
+
+	function updatePosition() {
+		//myMap.geoObjects.remove(myPlacemark)
+		myPlacemark.geometry.setCoordinates([lat, lon]);
+		myMap.setCenter([lat, lon], 16);
+		//myPlacemark
+	}
+
+</script>
+</head> 
+<body onResize="resizeMap()"> 
+
+<div data-role="page" id="map" class="ui-map-page">
+	<div data-role="header" data-position="fixed">
+		<h3>Карта</h3>
+	</div><!-- /header -->
+	<div data-role="content" style="padding: 0px; background: #000;">
+		<div id="map-obj" style="margin:0 auto; height:100%; width:100%;z-index:0;">
+			<a href="#map-panel" data-role="button" data-iconpos="notext" data-icon="arrow-r" style="position:absolute;z-index:1;left:2px;"></a>
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+		<ul>
+			<li><a data-icon="home" href="#home">Меню</a></li>
+			<li><a data-icon="grid" class="ui-btn-active" href="#map">Карта</a></li>
+			<li><a data-icon="search" href="#search">Поиск</a></li>
+		</ul>
+		</div><!-- /navbar -->
+	</div><!-- /footer -->
+	<div data-role="panel"  data-theme="a" data-display="push" data-dismissible="false" id="map-panel">
+		<ul data-role="listview" data-theme="a">
+			<li data-icon="delete"><a href="#" data-rel="close">Маршрут</a></li>
+		</ul>
+	</div><!-- /panel -->
+</div><!-- /page -->
+
+<div data-role="page" id="home">
+	<div data-role="header" data-position="fixed">
+		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Главное меню</h3>
+	</div><!-- /header -->
+	<div data-role="content">	
+		<ul data-role="listview" data-inset="true">
+			<li><a href="#map" onClick="updatePosition()">Где Я</a></li>
+			<li><a href="#search">Поиск</a></li>
+			<li><a href="#map">Маршрут</a></li>
+			<li><a href="#">Избранное</a></li>
+			<li><a href="#">Параметры</a></li>
+			<li><a href="#">Выход</a></li>
+		</ul>
+	</div><!-- /content -->
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+		<ul>
+			<li><a data-icon="home" class="ui-btn-active" href="#home">Меню</a></li>
+			<li><a data-icon="grid" href="#map">Карта</a></li>
+			<li><a data-icon="search" href="#search">Поиск</a></li>
+		</ul>
+		</div><!-- /navbar -->
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+<div data-role="page" id="search">
+	<div data-role="header">
+		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Поиск</h3>
+	</div><!-- /header -->
+	<div data-role="content">	
+		<ul data-role="listview" data-inset="true" data-filter="true">
+		</ul>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+		<ul>
+			<li><a data-icon="home" href="#home">Меню</a></li>
+			<li><a data-icon="grid" href="#map">Карта</a></li>
+			<li><a data-icon="search" class="ui-btn-active" href="#search">Поиск</a></li>
+		</ul>
+		</div><!-- /navbar -->
+	</div><!-- /footer -->
+</div><!-- /page -->
+</body>
+</html>
