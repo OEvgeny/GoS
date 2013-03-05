@@ -104,12 +104,17 @@
 	}
 
 </script>
+<style type="text/css">
+	.ui-btn-inner {
+		font-size: 1.0em;
+	}
+</style>
 </head> 
 <body onResize="resizeMap()"> 
 
 <div data-role="page" id="map" class="ui-map-page">
 	<div data-role="header" data-position="fixed">
-		<h3>Карта</h3>
+		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Карта</h3>	
 	</div><!-- /header -->
 	<div data-role="content" style="padding: 0px; background: #000;">
 		<div id="map-obj" style="margin:0 auto; height:100%; width:100%;z-index:0;">
@@ -120,8 +125,8 @@
 		<div data-role="navbar">
 		<ul>
 			<li><a data-icon="home" href="#home">Меню</a></li>
-			<li><a data-icon="grid" class="ui-btn-active" href="#map">Карта</a></li>
-			<li><a data-icon="search" href="#search">Поиск</a></li>
+			<li><a data-icon="grid" class="ui-btn-active ui-state-persist" href="#map">Карта</a></li>
+			<li><a data-icon="bars" href="#sights">Достопримечательности</a></li>
 		</ul>
 		</div><!-- /navbar -->
 	</div><!-- /footer -->
@@ -136,42 +141,54 @@
 	<div data-role="header" data-position="fixed">
 		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Главное меню</h3>
 	</div><!-- /header -->
-	<div data-role="content">	
-		<ul data-role="listview" data-inset="true">
-			<li><a href="#map" onClick="updatePosition()">Где Я</a></li>
-			<li><a href="#search">Поиск</a></li>
-			<li><a href="#map">Маршрут</a></li>
-			<li><a href="#">Избранное</a></li>
-			<li><a href="#">Параметры</a></li>
-			<li><a href="#">Выход</a></li>
-		</ul>
+	<div data-role="content" style="padding:3%; padding-top:inherit;">	
+			<a data-role="button" data-icon="info" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="#map" onClick="updatePosition()">Где Я</a>
+			<a data-role="button" data-icon="bars" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="#sights">Достопримечательности</a>
+			<a data-role="button" data-icon="gear" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="#settings">Параметры</a>
+			<a data-role="button" data-icon="delete" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="">Выход</a>
 	</div><!-- /content -->
 	<div data-role="footer" data-position="fixed">
 		<div data-role="navbar">
 		<ul>
-			<li><a data-icon="home" class="ui-btn-active" href="#home">Меню</a></li>
+			<li><a data-icon="home" class="ui-btn-active ui-state-persist" href="#home">Меню</a></li>
 			<li><a data-icon="grid" href="#map">Карта</a></li>
-			<li><a data-icon="search" href="#search">Поиск</a></li>
+			<li><a data-icon="bars" href="#sights">Достопримечательности</a></li>
 		</ul>
 		</div><!-- /navbar -->
 	</div><!-- /footer -->
 </div><!-- /page -->
 
-<div data-role="page" id="search">
+<div data-role="page" id="sights">
 	<div data-role="header">
-		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Поиск</h3>
+		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Достопримечательности</h3>
 	</div><!-- /header -->
 	<div data-role="content">	
-		<ul data-role="listview" data-inset="true" data-filter="true">
-		</ul>
+		<div data-role="navbar">
+			<ul>
+				<li><a data-icon="bars" class="ui-btn-active ui-state-persist" href="#">По типу</a></li>
+				<li><a data-icon="info" href="#">По отдалённости</a></li>
+			</ul>
+		</div>
+		<div data-role="controlgroup">
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Памятники</a>
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Парки</a>
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Музеи</a>
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Религиозные</a>
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Театры</a>
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Фонтаны</a>
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Выставки</a>
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Дома</a>
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Стадионы</a>
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Прочее</a>
+			</div>
 	</div><!-- /content -->
-	
+
 	<div data-role="footer" data-position="fixed">
 		<div data-role="navbar">
 		<ul>
 			<li><a data-icon="home" href="#home">Меню</a></li>
 			<li><a data-icon="grid" href="#map">Карта</a></li>
-			<li><a data-icon="search" class="ui-btn-active" href="#search">Поиск</a></li>
+			<li><a data-icon="bars" class="ui-btn-active ui-state-persist" href="#sights">Достопримечательности</a></li>
 		</ul>
 		</div><!-- /navbar -->
 	</div><!-- /footer -->
