@@ -6,7 +6,7 @@
     <title>Mitrofanov IV - GoS Project</title>
     <link rel="stylesheet" media="screen" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/respond.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -14,28 +14,31 @@
     <!--[if lt IE 8]>
     <link rel="stylesheet" href="stylesheets/ie.css">
     <![endif]-->
-        <script type="text/javascript">
-          function loadXMLDoc()
-          {
-            var xmlhttp;
-            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                xmlhttp=new XMLHttpRequest();
-            } else {// code for IE6, IE5
-              xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange=function() {
-              if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-                document.getElementById("wh").innerHTML=xmlhttp.responseText;
+    <script type="text/javascript">
+            function loadXMLDoc()
+            {
+              var xmlhttp;
+              if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                  xmlhttp=new XMLHttpRequest();
+              } else if (window.ActiveXObject) {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+              } else {
+                alert("Your browser does not support XMLHTTP!");
               }
+              xmlhttp.open("POST", "http://kappa.cs.karelia.ru/~mitrofan/123.txt", true);
+              xmlhttp.onreadystatechange=function() {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                  document.getElementById("wh").innerHTML=xmlhttp.responseText;
+                } else 
+                  document.getElementById("wh").innerHTML="Не удалось загрузить!";
+              }
+              xmlhttp.send(null);
             }
-            xmlhttp.open("GET","https://raw.github.com/iMitro/GoS/master/Reports/%D0%B8%D0%BD%D0%B4%D0%B8%D0%B2%D0%B8%D0%B4%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%BE%D1%82%D1%87%D1%91%D1%82%D1%8B%20%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA%D0%BE%D0%B2/wh-Mitrofanov",true);
-            xmlhttp.send();
-          }
-        </script>
+          </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   </head>
 
-  <body onload="loadXMLDoc()">
+  <body onload="loadXMLDoc();">
     <div id="header">
       <nav>
         <li class="fork"><a href="https://github.com/iMitro/GoS">Репозиторий</a></li>
