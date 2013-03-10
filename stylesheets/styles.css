@@ -526,6 +526,22 @@ textarea {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+  float:left;
+}
+
+img.photo {
+  display: block;
+  width: 200px;
+  margin-left: auto;
+}
+
+td {
+  color: #F7221E;
+}
+
+td:first-of-type {
+  color: #5034bb;
+  font-weight: bold;
 }
 
 body {
@@ -607,10 +623,9 @@ strong {
 
 .wrapper {
   max-width: 850px;
-  min-width: 850px;
   margin: 0 auto;
   position: relative;
-  padding: 0 20px;
+  padding: 0 220px;
 }
 
 section img {
@@ -663,7 +678,6 @@ pre code {
 }
 
 table {
-  width: 100%;
   border-collapse: collapse;
 }
 
@@ -696,6 +710,17 @@ dt {
   font-weight: normal;
 }
 
+div#doc p,
+div#milestone p {
+  position: fixed;
+  top: 165px;
+  display: block;
+  font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  text-indent: 20px;
+}
+
 #header {
   z-index: 100;
   left: 0;
@@ -715,7 +740,8 @@ dt {
   z-index: 100;
   left: 0;
   top: 193px;
-  height: 327px;
+  bottom: 5px;
+  max-height: 327px;
   width: 200px;
   position: fixed;
   background: url(../images/nav-bg.gif) #353535;
@@ -727,13 +753,15 @@ dt {
   -o-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
   font-weight: bold;
+  overflow-y: auto;
 }
 
 #milestone {
   z-index: 100;
   right: 0;
   top: 193px;
-  height: 327px;
+  bottom: 5px;
+  max-height: 327px;
   width: 200px;
   position: fixed;
   background: url(../images/nav-bg.gif) #353535;
@@ -745,11 +773,11 @@ dt {
   -o-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
   font-weight: bold;
+  overflow-y: auto;
 }
 
 #header nav {
   max-width: 850px;
-  min-width: 850px;
   margin: 0 auto;
   padding: 0 10px;
   background: blue;
@@ -957,7 +985,6 @@ dt {
 
 section {
   max-width: 850px;
-  min-width: 850px;
   padding: 30px 0px 50px 0px;
   margin: 20px 0;
   margin-top: 70px;
@@ -975,9 +1002,7 @@ section #title h1 {
   text-align: center;
   line-height: 36px;
 }
-section #title p,
-#doc p,
-#milestone p {
+section #title p {
   color: #d7cfbe;
   font-family: 'OpenSansLight', "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
