@@ -1,10 +1,11 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Guide of Sights by iMitro</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
+    <title>Guide of Sights Project</title>
+    <link rel="stylesheet" media="screen" href="stylesheets/styles.css">
+    <link rel="stylesheet" media="handheld" href="stylesheets/styles.min.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/respond.js"></script>
@@ -15,17 +16,42 @@
     <link rel="stylesheet" href="stylesheets/ie.css">
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
   </head>
+
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/iMitro/GoS">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/iMitro/GoS/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/iMitro/GoS/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
+    <div id="header">
+      <nav>
+        <li class="fork"><a href="https://github.com/iMitro/GoS">На GitHub</a></li>
+        <li class="fork"><a href="https://github.com/iMitro/GoS/wiki/_pages">Wiki</a></li>
+        <li class="fork"><a href="http://www.cs.karelia.ru/studies/se/?q=2012/24">Аннотация</a></li>
+        <li class="downloads"><a >Руководство</a></li>
+        <li class="downloads"><a href="https://github.com/iMitro/GoS/zipball/master">ZIP</a></li>
+        <li class="downloads"><a href="https://github.com/iMitro/GoS/tarball/master">TAR</a></li>
+        <li class="title">СКАЧАТЬ</li>
+      </nav>
+    </div><!-- end header -->
+
+    <div id="doc">
+      <p>Документы<p>
+      <nav>
+        <li><a href="https://github.com/iMitro/GoS/wiki/План%20проекта">План проекта</a></li>
+        <li><a href="https://github.com/iMitro/GoS/wiki/Спецификация%20требований">Техническое задание</a></li>
+        <li><a >Проектирование</a></li>
+        <li><a href="https://github.com/iMitro/GoS/wiki/План%20тестирования">План тестирования</a></li>
+        <li><a >Журнал тестирования</a></li>
+    </div><!-- end doc -->
+
+    <div id="milestone">
+      <p>Этапы разработки<p>
+      <nav>
+        <li><div>Планирование</div><img src="images/Done.png"></li>
+        <li><div>Спецификация требований</div><img src="images/Done.png"></li>
+        <li class="active"><div>Проектирование</div><img src="images/wait.gif"></li>
+        <li><div>Кодирование</div></li>
+        <li><div>Тестирование</div></li>
+        <li><div>Аттестация</div></li>
+      </nav>
+    </div><!-- end milestone -->
 
     <div class="wrapper">
 
@@ -34,23 +60,30 @@
           <h1>Guide of Sights</h1>
           <p>Путеводитель по достопримечательностям (г. Петрозаводск).</p>
           <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/iMitro">iMitro</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
         </div>
 
-        <h3>Добро пожаловать на официальную страницу проекта "Guide of Sights".</h3>
+<h3>О проекте</h3>
+<p>Проект выполняется в рамках дисциплины <a href="http://www.cs.karelia.ru/studies/se/?y=2012">"Технология производства программного обеспечения II"</a>, <a href="http://cs.karelia.ru/">кафедра ИМО</a>, <a href="http://petrsu.ru/">ПетрГУ</a>.<br>
+ПО представляет собой справочное приложение для мобильных устройств на платформе <a href="http://www.android.com/" ><img style="height: 9px;" src="http://www.android.com/images/logo.png" alt="Android"></a>, предоставляющее информацию о достопримечательностях г. Петрозаводска.<br>
+Подобное приложение может быть полезным, в частности, в сфере научного туризма: при организации и проведении международных и всероссийских конференций и симпозиумов на базе <a href=http://mathem.krc.karelia.ru/">ИПМИ КарНЦ РАН</a> или ПетрГУ в г. Петрозаводске. Кроме того, мобильное приложение смогло бы составить конкуренцию менее удобным и громоздким справочникам города и печатным картам гостя. </p>
 
-<p>Проект выполняется в рамках дисциплины "Технология производства программного обеспечения II", кафедра ИМО, ПетрГУ.<br>
-ПО представляет собой справочное приложение для мобильных устройств на платформе <img src="http://www.android.com/images/logo.png" alt="Android">, предоставляющее информацию о достопримечательностях г. Петрозаводска.<br>
-Пользователь может просмотреть перечень достопримечательностей города и найти информацию об интересующей его достопримечательности, а также её местоположение, фотографии, маршрут до неё от координат пользователя. </p>
+<h3>Основной функционал ПО</h3>
+<ul>
+<li>Просмотр перечня достопримечательностей города.</li>
+<li>Просмотр информации о достопримечательности, а также ее фотографий.</li>
+<li>Прокладывание маршрута до достопримечательности.</li>
+</ul>
 
 <h3>Полезные ссылки</h3>
-
+В ходе проекта используются следующие сторонние разработки:
 <ol>
-<li><a href="http://www.cs.karelia.ru/studies/se/?q=2012/24">Аннотация</a></li>
-<li><a href="http://www.cs.karelia.ru/studies/se/?y=2012">ТППО II</a></li>
-</ol><h3>Скриншоты</h3>
+<li><a href="http://jquerymobile.com/">jQuery Mobile</a></li>
+<li><a href="http://api.yandex.ru/maps/doc/intro/concepts/intro.xml">API Яндекс.Карт</a></li>
+<li><a href="http://phonegap.com/">PhoneGap</a></li>
+<li><a href="http://developer.android.com/intl/ru/sdk/index.html">Android SDK</a></li>
+</ol>
 
+<h3>Черновые макеты ПО</h3>
 <p><img src="https://raw.github.com/iMitro/GoS/master/wiki/scr0.png" alt="Screenshots"></p>
 
 <h3>Участники проекта</h3>
@@ -58,21 +91,23 @@
 <h4>Разработчики</h4>
 
 <ul>
-<li>Пилинович А.В. (менеджер)</li>
-<li>Каушинис Т.В. (секретарь)</li>
+<li>Пилинович А.В. (<span style="font-weight: bold;">менеджер</span>)</li>
+<li>Каушинис Т.В. (<span style="font-weight: bold;">секретарь</span>)</li>
 <li>Митрофанов И.В.</li>
-<li>Олонов Е.Н.</li>
-</ul><h4>Управление</h4>
+<li>Олонов Е.Н.</li >
+</ul>
+
+<h4>Управление</h4>
 
 <ul>
-<li>Бородина А.В. (заказчик)</li>
-<li>Кулаков К.А. (инструктор)</li>
-</ul><hr><p>Copyright © 2013 GoS Project.
-По вопросам содержимого страницы обращайтесь к <a href="mailto:mitrofan@cs.karelia.ru">iMitro</a>.</p>
+<li>Бородина А.В. (<span style="font-weight: bold;">заказчик</span>)</li>
+<li>Кулаков К.А. (<span style="font-weight: bold;">инструктор</span>)</li>
+</ul><hr><p align="center">Copyright © 2013 GoS Project.</p>
+<div id="title">
+          <span class="credits left">Project maintained by <a href="https://github.com/iMitro">iMitro</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a>, modified by <a href="https://github.com/iMitro">iMitro</a></span></div>
       </section>
-
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
 </html>
