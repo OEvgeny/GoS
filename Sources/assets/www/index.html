@@ -4,7 +4,8 @@
 <head> 
 	<title>Main</title> 
 	<meta charset=utf-8>
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1" > 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 	<link rel="stylesheet" href="jquery.mobile-1.3.0/jquery.mobile-1.3.0.min.css" />
 	
 	<!-- Yandex -->
@@ -13,7 +14,6 @@
 	<script src="jquery.mobile-1.3.0/jquery-1.9.1.min.js"></script>
 	<script src="jquery.mobile-1.3.0/jquery.mobile-1.3.0.min.js"></script>
 	
-	<!-- Yandex initialization -->
 	<script type="text/javascript">
     	var myMap;
     	var lat;
@@ -22,17 +22,17 @@
     	var myPlacemark;
 
     	if (navigator.geolocation) {
- 			var timeoutVal = 10 * 1000 * 1000;
+ 			var timeoutVal = 100 * 1000 * 1000;
  			navigator.geolocation.getCurrentPosition(
  				getGLPosition,
   				catchError,
-  			{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+  				{enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0}
  			);
-		}
+		} 
 		else {
  			errState = true;
 		}
-
+		
 		function getGLPosition(position) {
 			lat = position.coords.latitude;
 			lon = position.coords.longitude;
@@ -46,7 +46,6 @@
 		function displayPosition(position) {
  			alert("Широта: " + position.coords.latitude + ", Долгота: " + position.coords.longitude);
 		}
-
 
 		function displayError(error) {
  			var errors = {
@@ -62,7 +61,7 @@
 			displayError(error);
 		}
 
-    	function init(){
+    	function init() {
     		if (errState == true)
         		getYMPosition();
 
@@ -88,39 +87,101 @@
         	myMap.geoObjects.add(myPlacemark);
     }
 
+
     function resizeMap() {
     	document.getElementById('map-obj').style.height = ($.mobile.getScreenHeight() - 101)+'px';
+    	myMap.container.fitToViewport();
     }
 
-    $(document).delegate('.ui-map-page', 'pageshow', function () {
+    /*
+    function maxHeight() {
+		var h = $('div[data-role="header"]').outerHeight(true);
+		var f = $('div[data-role="footer"]').outerHeight(true);
+		var w = $(window).height();
+		var c = $('div[data-role="content"]');
+		var c_h = c.height();
+		var c_oh = c.outerHeight(true);
+		var c_new = w - h - f - c_oh + c_h;
+		var total = h + f + c_oh;
+		if (c_h<c.get(0).scrollHeight) {
+			c.height(c.get(0).scrollHeight);
+		}
+		else {
+			c.height(c_new);
+		}
+    }
+	*/
+
+    $(document).delegate('.ui-map-page', 'pageshow resize orientationchange', function () {
     	resizeMap();
 	});
 
+    /*var clickOk = true;
+	$('#wai').on('vclick', function () {
+		if (clickOk === true) {
+			clickOk = false;
+			setTimeout(function() {
+				clickOk = true;
+			}, 400);
+			alert('It works!');
+			//myMap.geoObjects.remove(myPlacemark)
+			myPlacemark.geometry.setCoordinates([lat, lon]);
+			myMap.setCenter([lat, lon], 16);
+			//myPlacemark
+		}
+		return false;
+	});*/
+
 	function updatePosition() {
-		//myMap.geoObjects.remove(myPlacemark)
 		myPlacemark.geometry.setCoordinates([lat, lon]);
 		myMap.setCenter([lat, lon], 16);
-		//myPlacemark
 	}
 
+	$.mobile.defaultPageTransition = 'none';
+	$.mobile.defaultDialogTransition = 'none';
+	$.mobile.buttonMarkup.hoverDelay = 0;
+
 </script>
+
 <style type="text/css">
 	.ui-btn-inner {
 		font-size: 1.0em;
 	}
 </style>
+
 </head> 
-<body onResize="resizeMap()"> 
+<body>
+<div data-role="page" id="home">
+	<div data-role="header" data-position="fixed">
+		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Главное меню</h3>
+	</div><!-- /header -->
+	<div data-role="content" style="padding:3%; padding-top:inherit;">	
+			<a data-role="button" data-icon="info" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" onClick="updatePosition();" href="#map">Где Я</a>
+			<a data-role="button" data-icon="bars" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="#sights">Достопримечательности</a>
+			<a data-role="button" data-icon="gear" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="#settings">Параметры</a>
+			<a data-role="button" data-icon="delete" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="">Выход</a>
+	</div><!-- /content -->
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+		<ul>
+			<li><a data-icon="home" class="ui-btn-active ui-state-persist" href="#home">Меню</a></li>
+			<li><a data-icon="grid" href="#map">Карта</a></li>
+			<li><a data-icon="bars" href="#sights">Достопримечательности</a></li>
+		</ul>
+		</div><!-- /navbar -->
+	</div><!-- /footer -->
+</div><!-- /page -->
+
 
 <div data-role="page" id="map" class="ui-map-page">
 	<div data-role="header" data-position="fixed">
 		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Карта</h3>	
 	</div><!-- /header -->
-	<div data-role="content" style="padding: 0px; background: #000;">
-		<div id="map-obj" style="margin:0 auto; height:100%; width:100%;z-index:0;">
+	<div data-role="content" style="padding: 0px;">
+		<div id="map-obj" style="background:#000; margin:0 auto; height:99%;z-index:0;">
 			<a href="#map-panel" data-role="button" data-iconpos="notext" data-icon="arrow-r" style="position:absolute;z-index:1;left:2px;"></a>
 		</div>
-	</div>
+	</div><!-- /content -->
 	<div data-role="footer" data-position="fixed">
 		<div data-role="navbar">
 		<ul>
@@ -137,40 +198,21 @@
 	</div><!-- /panel -->
 </div><!-- /page -->
 
-<div data-role="page" id="home">
-	<div data-role="header" data-position="fixed">
-		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Главное меню</h3>
-	</div><!-- /header -->
-	<div data-role="content" style="padding:3%; padding-top:inherit;">	
-			<a data-role="button" data-icon="info" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="#map" onClick="updatePosition()">Где Я</a>
-			<a data-role="button" data-icon="bars" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="#sights">Достопримечательности</a>
-			<a data-role="button" data-icon="gear" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="#settings">Параметры</a>
-			<a data-role="button" data-icon="delete" data-corners="true" data-shadow="true" data-iconshadow="true" data-iconpos="right" href="">Выход</a>
-	</div><!-- /content -->
-	<div data-role="footer" data-position="fixed">
-		<div data-role="navbar">
-		<ul>
-			<li><a data-icon="home" class="ui-btn-active ui-state-persist" href="#home">Меню</a></li>
-			<li><a data-icon="grid" href="#map">Карта</a></li>
-			<li><a data-icon="bars" href="#sights">Достопримечательности</a></li>
-		</ul>
-		</div><!-- /navbar -->
-	</div><!-- /footer -->
-</div><!-- /page -->
-
 <div data-role="page" id="sights">
-	<div data-role="header">
-		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Достопримечательности</h3>
+	<div data-role="header" data-position="fixed">
+		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a>
+		<h3>Достопримечательности</h3>
+		<a href="#" data-role="button">По отдалённости</a>
 	</div><!-- /header -->
-	<div data-role="content">	
-		<div data-role="navbar">
-			<ul>
-				<li><a data-icon="bars" class="ui-btn-active ui-state-persist" href="#">По типу</a></li>
-				<li><a data-icon="info" href="#">По отдалённости</a></li>
-			</ul>
-		</div>
+	<div data-role="content">
+			<div data-role="navbar">
+				<ul>
+					<li><a data-icon="bars" class="ui-btn-active ui-state-persist" 	href="#">По типу</a></li>
+					<li><a data-icon="bars" href="#pregenerated">Все</a></li>
+				</ul>
+			</div><!-- /navbar -->
 		<div data-role="controlgroup">
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Памятники</a>
+				<a href="pregenerated.php" data-icon="arrow-r" data-iconpos="right" data-role="button">Памятники</a>
 				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Парки</a>
 				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Музеи</a>
 				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Религиозные</a>
@@ -180,9 +222,8 @@
 				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Дома</a>
 				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Стадионы</a>
 				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Прочее</a>
-			</div>
-	</div><!-- /content -->
-
+			</div><!-- /Controlgroup -->
+	</div><!-- /Content -->
 	<div data-role="footer" data-position="fixed">
 		<div data-role="navbar">
 		<ul>
@@ -193,5 +234,112 @@
 		</div><!-- /navbar -->
 	</div><!-- /footer -->
 </div><!-- /page -->
+
+
+<div data-role="page" id="pregenerated">
+	<div data-role="header" data-position="fixed">
+		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a>
+		<h3>Достопримечательности</h3>
+		<a href="#" data-role="button">По отдалённости</a>
+	</div><!-- /header -->
+	<div data-role="content">
+		<div data-role="navbar">
+			<ul>
+				<li><a data-icon="bars" href="#">По типу</a></li>
+				<li><a data-icon="bars" class="ui-btn-active ui-state-persist"href="#">Все</a></li>
+			</ul>
+		</div><!-- /navbar -->
+		<ul data-role="listview" style="padding-top:3%">
+            <li><a href="#samplesight">
+            	<img src="res/images/thumb/0001.jpg" alt="">
+            	<h2>Онежская набережная</h2>
+            	<p>Парки</p>
+            </a></li>
+            <li><a href="#">
+            	<img src="res/images/thumb/0002.jpg" alt="">
+            	<h2>Невский собор</h2>
+            	<p>Религиозные</p>
+            </a></li>
+            <li><a href="#">
+            	<img src="res/images/thumb/0003.jpg" alt="">
+            	<h2>Национальный театр</h2>
+            	<p>Театры</p>
+            </a></li>
+            <li><a href="#">
+            	<img src="res/images/thumb/0004.jpg" alt="">
+            	<h2>Стадион Юность</h2>
+            	<p>Стадионы</p>
+            </a></li>
+            <li><a href="#">
+            	<img src="res/images/thumb/0005.jpg" alt="">
+            	<h2>Русский драматический театр</h2>
+            	<p>Театры</p>
+            </a></li>
+            <li><a href="#">
+            	<img src="res/images/thumb/0006.jpg" alt="">
+            	<h2>Городской выставочный зал</h2>
+            	<p>Выставки</p>
+            </a></li>
+        </ul>
+	</div><!-- /Content -->
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+		<ul>
+			<li><a data-icon="home" href="#home">Меню</a></li>
+			<li><a data-icon="grid" href="#map">Карта</a></li>
+			<li><a data-icon="bars" class="ui-btn-active ui-state-persist" href="#sights">Достопримечательности</a></li>
+		</ul>
+		</div><!-- /navbar -->
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+<div data-role="page" id="samplesight" class="sight-page">
+	<div data-role="header" data-position="fixed">
+		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a>
+		<h3>Достопримечательности</h3>
+		<a href="#" data-role="button">По отдалённости</a>
+	</div><!-- /header -->
+	<div data-role="content">
+		<div data-role="navbar">
+			<ul>
+				<li><a data-icon="bars" href="#">По типу</a></li>
+				<li><a data-icon="bars" class="ui-btn-active ui-state-persist"href="#">Все</a></li>
+			</ul>
+		</div><!-- /navbar -->
+		<fieldset class="ui-grid-a">
+			<div class="ui-block-a" style="width:100px;">
+				<h2><img src="res/images/thumb/0001.jpg" alt=""></h2>
+        	</div>
+    		<div class="ui-block-b" style="width:80%">
+				<h2>Онежская набережная</h2>
+        		<h4>Парки</h4>
+        	</div>
+        </fieldset>
+        <p>
+Онежская набережная - одно из красивейших мест города, излюбленное место прогулок и отдыха горожан. Ее строительство началось во второй половине XX века, а в День города, 25 июня 1994 года, состоялось ее открытие.
+		</p>
+		<p>
+Слева от Мэрии стоит Петровская ротонда. Вдоль набережной выстроились в ряд памятники - подарки от городов-побратимов Петрозаводска. Традиционно появление нового монумента происходит в День города (последняя суббота июня). <br>
+		</p>
+		<p>
+Первым памятником, открывшим "скульптурный обмен" между Петрозаводском и его побратимами, стала стальная конструкция "Рыбаки", подаренная американским городом Дулутом в 1991 году. Его автор Рафаель Консуэгр выиграл в Америке конкурс на лучшую скульптуру для Петрозаводска.
+        </p>
+        <a data-role="button" data-inline="true" href="#"><img src="res/images/min/0001_1.jpg" alt=""></a>
+        <a data-role="button" data-inline="true" href="#"><img src="res/images/min/0001_2.jpg" alt=""></a>
+        <a data-role="button" data-inline="true" href="#"><img src="res/images/min/0001_3.jpg" alt=""></a>
+        <a data-role="button" data-inline="true" href="#"><img src="res/images/min/0001_4.jpg" alt=""></a>
+        
+	</div><!-- /Content -->
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+		<ul>
+			<li><a data-icon="home" href="#home">Меню</a></li>
+			<li><a data-icon="grid" href="#map">Карта</a></li>
+			<li><a data-icon="bars" class="ui-btn-active ui-state-persist" href="#sights">Достопримечательности</a></li>
+		</ul>
+		</div><!-- /navbar -->
+	</div><!-- /footer -->
+</div><!-- /page -->
+
 </body>
 </html>
