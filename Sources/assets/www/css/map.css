@@ -10,6 +10,14 @@
 	padding-bottom: 10px;
 }
 
-#scalecontrol {
-	    
+#scalecontrol.mapcontrol {
+	
+}
+
+#maptypeselctor.mapcontrol {
+	right: 0px;
+}
+
+.fixbackground {
+	background:#F00;
 }

@@ -53,15 +53,6 @@
 			zoom: 16,
 		});
 
-		// Создание экземпляра элемента управления
-		myMap.controls.add(
-			new ymaps.control.ZoomControl()
-		);
-
-		// Обращение к конструктору класса элемента
-		// управления по ключу
-		myMap.controls.add('typeSelector');
-			
 		myPlacemark = new ymaps.Placemark([lat, lon], {
 			balloonContentHeader: "Вы здесь",
 			balloonContent: ymaps.geolocation.city,
@@ -70,7 +61,7 @@
 			myMap.geoObjects.add(myPlacemark);
 		}
 
-
+		
 		function resizeMap() {
 			document.getElementById('map-obj').style.height = ($.mobile.getScreenHeight() - 101)+'px';
 			myMap.container.fitToViewport();
@@ -120,4 +111,15 @@
 		$.mobile.pageContainer.append( data );
 		$.mobile.hidePageLoadingMsg();
 		$.mobile.changePage( $( '#home' ) );
+	}
+
+	$(document).delegate('.ui-map-page', 'pageshow resize orientationchange', function () {
+			resizeMap();
+	});
+
+	function toggileByDestination() {
+		if ($('.bydist').hasClass('ui-btn-active'))
+			 $('.bydist').removeClass('ui-btn-active');
+		 else
+			$('.bydist').addClass('ui-btn-active');
 	}

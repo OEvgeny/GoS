@@ -19,7 +19,7 @@
 	<script type="text/javascript" charset="utf-8" src="js/windows-app.js"></script>
 	<!-- Application initialization function -->
 	<script type="text/javascript" charset="utf-8">
-		$(document).ready(app.initialize());		
+		$(document).ready(app.initialize());
 	</script>
 
 	<!-- Styles section -->
@@ -28,32 +28,41 @@
 	<link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
 	<!-- JQuery -->
 	<link rel="stylesheet" href="css/map.css" />
-	<!-- loadingscreen page style -->
+	<!-- loading screen page style -->
 	<style>
 		#deviceready, #deviceonline, #deviceoffline {
 			display: none;
+		}
+		.logo {
+			text-align:center;
+			margin: 0 auto;
+		}
+		.logo a {
+			width: 50%
 		}
 	</style>
 	</head>
 	<body class="app">
 	<body>
 		<div data-role="page" id="loadingscreen">
-				<div data-role="content">
-				<h1>HelloWorld</h1>
-				<div id="deviceready">
-					<p>Device is ready!</p>
-				</div>
-				<div id="deviceonline">
-					<p>Device is online!</p>
-				</div>
-				<div id="deviceoffline">
-					<p>Device is offline!</p>
-				</div>
-				<div>
-					<a href="#" data-role="button" data-icon="delete" onclick="app.exit()">Отмена</a>
+			<div data-role="content">
+				<div class="logo">
+					<img src="res/images/logo.png">
+					<h1>Петрозаводск</h1>
+					<div id="deviceready">
+						<p>Device is ready!</p>
+					</div>
+					<div id="deviceonline">
+						<p>Device is online!</p>
+					</div>
+					<div id="deviceoffline">
+						<p>Device is offline!</p>
+					</div>
+					<div>
+						<a href="#" data-role="button" data-inline="true" data-icon="delete" onclick="app.exit()">Отмена</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</body>
 	</body>
 </html>

@@ -17,10 +17,6 @@ var app = {
 		});
 		//$.mobile.showPageLoadingMsg();
 
-		$(document).delegate('.ui-map-page', 'pageshow resize orientationchange', function () {
-			resizeMap();
-		});
-
 		//app.showElement('deviceready');
 		
 		$.mobile.defaultPageTransition = 'none';
