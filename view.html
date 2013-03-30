@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+	<title>Picture</title>
+	<style>
+		/* styles unrelated to zoom */
+		* { border:0; margin:0; padding:0; }
+		p { position:absolute; top:3px; right:28px; color:#555; font:bold 13px/1 sans-serif;}
+
+		/* these styles are for the demo, but are not required for the plugin */
+		.zoom {
+			display:inline-block;
+			position: relative;
+		}
+		
+		/* magnifying glass icon */
+		.zoom:after {
+			content:'';
+			display:block; 
+			width:33px; 
+			height:33px; 
+			position:absolute; 
+			top:0;
+			right:0;
+			background:url(icon.png);
+		}
+
+		.zoom img {
+			display: block;
+		}
+
+		.zoom img::selection { background-color: transparent; }
+
+		body {display: table; width: 100%; height: 100%;}
+		#content {vertical-align: middle; display: table-cell; height: 100%; 		text-align:center;}
+		.ex3 {
+			text-align:center;
+			margin: 0 auto;
+		}
+
+		img {
+			margin: 0 auto;
+			height: 100%;
+		}
+	</style>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+	<script src='javascripts/jquery.zoom-min.js'></script>
+	<script>
+	    $(document).ready(function(){
+	    	var query = window.location.href.split("?img=")[1];
+			if (!query) return;
+			
+	    	$("#ex3 > img").attr("src", query);
+
+	    	$("#ex3").css("width",$(window).width() +'px');
+	    	$("#ex3").css("height",$(window).height() +'px');
+			$('#ex3').zoom({ on:'click' });			 
+		});
+	</script>
+</head>
+<body>
+	<div id="content">
+		<div class='zoom' id="ex3">
+			<img src="#"/>
+		</div>
+	</div>
+</body>
+</html>
