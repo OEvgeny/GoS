@@ -3,20 +3,19 @@
 	var lon;
 	var errState;
 	var myPlacemark;
-	var timeoutVal = 10 * 1000 * 1000;
 
-		
 	if (navigator.geolocation) {
+		var timeoutVal = 10 * 1000 * 1000;
 		navigator.geolocation.getCurrentPosition(
 		getGLPosition,
 		displayError,
-		{enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0});
+		{enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0}
+	);
 	} 
 	else {
 		errState = true;
 	}
-	
-
+		
 	function getGLPosition(position) {
 		lat = position.coords.latitude;
 		lon = position.coords.longitude;
@@ -46,10 +45,8 @@
 	}
 
 	function initYM() {
-		//if (errState == true) ugly trick  for debug:)
-		//getYMPosition();
-
-		//alert(lat+' '+lon);
+		if (errState == true)
+		getYMPosition();
 
 		myMap = new ymaps.Map ("map-obj", {
 			center: [lat, lon],
@@ -113,7 +110,7 @@
 	function addPages(data) {
 		$.mobile.pageContainer.append( data );
 		$.mobile.hidePageLoadingMsg();
-		//$.mobile.changePage( $( '#home' ) );
+		$.mobile.changePage( $( '#home' ) );
 	}
 
 	$(document).delegate('.ui-map-page', 'pageshow resize orientationchange', function () {

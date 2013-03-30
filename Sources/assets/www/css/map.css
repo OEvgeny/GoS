@@ -17,3 +17,7 @@
 #maptypeselctor.mapcontrol {
 	right: 0px;
 }
+
+.fixbackground {
+	background:#F00;
+}

@@ -13,11 +13,8 @@ var app = {
 	},
 		
 	onDeviceReady: function () {
-		// Not works in 2.3 android;
-		//document.addEventListener('offline', this.onDeviceOffline, false);
-		//document.addEventListener('online', this.onDeviceOnline, false);
-
-		app.showElement('deviceready');
+		document.addEventListener('offline', this.onDeviceOffline, false);
+		document.addEventListener('online', this.onDeviceOnline, false);
 
 		$.ajax({
 			type: 'POST',
@@ -26,10 +23,11 @@ var app = {
 			success: function(data) {
 				addPages(data);
 				ymaps.ready(initYM);
-				$.mobile.changePage($('#home'));
+				$.mobile.changePage( $( '#home' ) );
 			}
-		});
-		$.mobile.showPageLoadingMsg();
+		});$.mobile.showPageLoadingMsg();
+
+		app.showElement('deviceready');
 
 		$.mobile.defaultPageTransition = 'none';
 		$.mobile.defaultDialogTransition = 'none';

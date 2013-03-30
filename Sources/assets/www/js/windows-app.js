@@ -5,19 +5,6 @@ var app = {
 	},
 	
 	onDeviceReady: function () {
-		
-		
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(
-		getGLPosition,
-		displayError,
-		{enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0});
-	} 
-	else {
-		errState = true;
-	}
-	
-
 		$.ajax({
 			type: 'POST',
 			url: 'menu.html',
@@ -25,7 +12,7 @@ var app = {
 			success: function(data) {
 				addPages(data);
 				ymaps.ready(initYM);
-				$.mobile.changePage($('#home'));
+				$.mobile.changePage( $( '#home' ) );
 			}
 		});
 		//$.mobile.showPageLoadingMsg();
