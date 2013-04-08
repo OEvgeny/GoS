@@ -169,12 +169,35 @@
 	function addPages(data) {
 		$.mobile.pageContainer.append( data );
 		$.mobile.hidePageLoadingMsg();
-		//$.mobile.changePage( $( '#home' ) );
 
 		$("#childcontainer").change(
 			function() {
 				myMap.setType($('#childcontainer').val());
-			});
+		});
+
+		$('div.sight-page')
+					.on('pageshow', function(e){
+						var 
+							currentPage = $(e.target),
+							options = {},
+							photoSwipeInstance = $("ul.gallery a", e.target).photoSwipe(options,  currentPage.attr('id'));
+							
+						return true;
+					})
+					
+					.on('pagehide', function(e){
+						var 
+							currentPage = $(e.target),
+							photoSwipeInstance = PhotoSwipe.getInstance(currentPage.attr('id'));
+
+						if (typeof photoSwipeInstance != "undefined" && photoSwipeInstance != null) {
+							PhotoSwipe.detatch(photoSwipeInstance);
+						}
+						
+						return true;
+						
+					});
+				
 	}
 
 	$(document).delegate('.ui-map-page', 'pageshow resize orientationchange', function () {
