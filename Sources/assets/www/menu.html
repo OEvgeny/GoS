@@ -5,6 +5,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 </head> 
 <body>
+
 <div data-role="page" id="home">
 	<div data-role="header" data-position="fixed">
 		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Главное меню</h3>
@@ -24,6 +25,7 @@
 			<li><a data-icon="home" class="ui-btn-active ui-state-persist" href="#">Меню</a></li>
 			<li><a data-icon="grid" href="#map">Карта</a></li>
 			<li><a data-icon="bars" href="#sights">Достопримечательности</a></li>
+			<li><a data-icon="plus" href="#debug">Отладка</a></li>
 		</ul>
 		</div><!-- /navbar -->
 	</div><!-- /footer -->
@@ -37,13 +39,13 @@
 	<div data-role="content" style="padding: 0px;">
 		<div id="map-obj" style="background:#000; margin:0 auto; height:99%;z-index:0;">
 			<!--<a href="#map-panel" data-role="button" data-iconpos="notext" data-icon="arrow-r" style="position:absolute;z-index:1;left:2px;"></a>-->
-			<div data-role="controlgroup" id="scalecontrol" class="mapcontrol">
-				<a href="#" data-role="button" data-iconpos="notext" data-icon="plus" data-theme="a"></a>
-				<a href="#" data-role="button" data-iconpos="notext" data-icon="minus" data-theme="a"></a>
-			</div>
 			<div data-role="controlgroup" class="mapcontrol" id="maptypeselctor">
-				<select name="select" id="select" data-theme="a">
-            		<option value="">Карта</option>
+				<select name="childcontainer" id="childcontainer" data-theme="a">
+					<option value="yandex#map">Карта</option>
+        			<option value="yandex#satellite">Спутник</option>
+        			<option value="yandex#hybrid">Гибрид</option>
+        			<option value="yandex#publicMap">Народная</option>
+        			<option value="yandex#publicMapHybrid">Народная гибрид</option>
         		</select>
 			</div>
 		</div>
@@ -63,7 +65,7 @@
 	<div data-role="header" data-position="fixed">
 		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a>
 		<h3>Достопримечательности</h3>
-		<a href="#" data-role="button" class="bydist" onclick="toggileByDestination();">По отдалённости</a>
+		<a href="#" data-role="button" class="bydist" onclick="toggileByDestination();">@</a>
 	</div><!-- /header -->
 	<div data-role="content">
 			<div data-role="navbar">
@@ -82,7 +84,7 @@
 				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Выставки</a>
 				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Дома</a>
 				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Стадионы</a>
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Прочее</a>
+				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button" onClick="message('It Works');">Прочее</a>
 			</div><!-- /Controlgroup -->
 	</div><!-- /Content -->
 	<div data-role="footer" data-position="fixed">
@@ -101,7 +103,7 @@
 	<div data-role="header" data-position="fixed">
 		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a>
 		<h3>Достопримечательности</h3>
-		<a href="#" data-role="button" class="bydist" onclick="toggileByDestination();">По отдалённости</a>
+		<a href="#" data-role="button" class="bydist" onclick="toggileByDestination();">@</a>
 	</div><!-- /header -->
 	<div data-role="content">
 		<div data-role="navbar">
@@ -157,18 +159,17 @@
 <div data-role="page" id="samplesight" class="sight-page">
 	<div data-role="header" data-position="fixed">
 		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a>
-		<h4>Онежская набережная</h4>		
+		<h4>Парки</h4>		
 	</div><!-- /header -->
 	<div data-role="content">
-		<!--<fieldset class="ui-grid-a">
+		<fieldset class="ui-grid-a">
 			<div class="ui-block-a" style="width:100px;">
 				<h2><img src="res/images/thumb/0001.jpg" alt=""></h2>
         	</div>
     		<div class="ui-block-b" style="width:50%">
 				<h2>Онежская набережная</h2>
-        		<h4>Парки</h4>
         	</div>
-        </fieldset>-->
+        </fieldset>
         <p>
 Онежская набережная - одно из красивейших мест города, излюбленное место прогулок и отдыха горожан. Ее строительство началось во второй половине XX века, а в День города, 25 июня 1994 года, состоялось ее открытие.
 		</p>

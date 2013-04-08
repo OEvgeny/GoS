@@ -1,16 +1,15 @@
 	var myMap;
 	var lat;
 	var lon;
-	var errState;
+	var errState = false;
 	var myPlacemark;
 	var timeoutVal = 10 * 1000 * 1000;
 
-		
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 		getGLPosition,
-		displayError,
-		{enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0});
+		catchError/*,//todo: findout what is timeout )
+		{enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0}*/);
 	} 
 	else {
 		errState = true;
@@ -38,6 +37,7 @@
 			3: 'Таймаут соединения'
 		};
 		//alert("Ошибка: " + errors[error.code]);
+		message("Ошибка: " + errors[error.code]);
 	}
 
 	function catchError(error) {
@@ -46,15 +46,71 @@
 	}
 
 	function initYM() {
-		//if (errState == true) ugly trick  for debug:)
-		//getYMPosition();
+		if (errState === true)
+			getYMPosition();
 
-		//alert(lat+' '+lon);
+		message('lat:' +lat+'<br />'+'lon:'+lon);
 
 		myMap = new ymaps.Map ("map-obj", {
 			center: [lat, lon],
 			zoom: 16,
 		});
+
+		// Создадим пользовательский макет ползунка масштаба.
+        ZoomLayout = ymaps.templateLayoutFactory.createClass('<div data-role="controlgroup">' +
+  				'<a id="zoom-in" href="#" data-role="button" data-iconpos="notext" data-icon="plus" data-theme="a"></a>' +
+				'<a id="zoom-out" href="#" data-role="button" data-iconpos="notext" data-icon="minus" data-theme="a"></a>' +
+            "</div>", {
+
+            // Переопределяем методы макета, чтобы выполнять дополнительные действия
+            // при построении и очистке макета.
+            build: function () {
+                // Вызываем родительский метод build.
+                ZoomLayout.superclass.build.call(this);
+
+                // Привязываем функции-обработчики к контексту и сохраняем ссылки
+                // на них, чтобы потом отписаться от событий.
+                this.zoomInCallback = ymaps.util.bind(this.zoomIn, this);
+                this.zoomOutCallback = ymaps.util.bind(this.zoomOut, this);
+
+                // Начинаем слушать клики на кнопках макета.
+                $('#zoom-in').bind('click', this.zoomInCallback);
+                $('#zoom-out').bind('click', this.zoomOutCallback);
+            },
+
+            clear: function () {
+                // Снимаем обработчики кликов.
+                $('#zoom-in').unbind('click', this.zoomInCallback);
+                $('#zoom-out').unbind('click', this.zoomOutCallback);
+
+                // Вызываем родительский метод clear.
+                ZoomLayout.superclass.clear.call(this);
+            },
+
+            zoomIn: function () {
+                var map = this.getData().control.getMap();
+                // Генерируем событие, в ответ на которое
+                // элемент управления изменит коэффициент масштабирования карты.
+                this.events.fire('zoomchange', {
+                    oldZoom: map.getZoom(),
+                    newZoom: map.getZoom() + 1
+                });
+            },
+
+            zoomOut: function () {
+                var map = this.getData().control.getMap();
+                this.events.fire('zoomchange', {
+                    oldZoom: map.getZoom(),
+                    newZoom: map.getZoom() - 1
+                });
+            }
+        }),
+
+        zoomControl = new ymaps.control.SmallZoomControl({
+            layout: ZoomLayout
+        });
+
+	    myMap.controls.add(zoomControl, {left: 5, top: 5});
 
 		myPlacemark = new ymaps.Placemark([lat, lon], {
 			balloonContentHeader: "Вы здесь",
@@ -114,6 +170,11 @@
 		$.mobile.pageContainer.append( data );
 		$.mobile.hidePageLoadingMsg();
 		//$.mobile.changePage( $( '#home' ) );
+
+		$("#childcontainer").change(
+			function() {
+				myMap.setType($('#childcontainer').val());
+			});
 	}
 
 	$(document).delegate('.ui-map-page', 'pageshow resize orientationchange', function () {
@@ -125,4 +186,9 @@
 			 $('.bydist').removeClass('ui-btn-active');
 		 else
 			$('.bydist').addClass('ui-btn-active');
+	}
+
+	//debug
+	function message(errText) {		
+		$('<p>'+errText+'</p>').appendTo('#debuglog');
 	}
