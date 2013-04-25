@@ -162,14 +162,8 @@
 		<h4>Парки</h4>		
 	</div><!-- /header -->
 	<div data-role="content">
-		<fieldset class="ui-grid-a">
-			<div class="ui-block-a" style="width:100px;">
-				<h2><img src="res/images/thumb/0001.jpg" alt=""></h2>
-        	</div>
-    		<div class="ui-block-b" style="width:50%">
-				<h2>Онежская набережная</h2>
-        	</div>
-        </fieldset>
+				<h2><img src="res/images/thumb/0001.jpg" alt=""> 
+        		Онежская набережная</h2>
         <p>
 Онежская набережная - одно из красивейших мест города, излюбленное место прогулок и отдыха горожан. Ее строительство началось во второй половине XX века, а в День города, 25 июня 1994 года, состоялось ее открытие.
 		</p>
@@ -188,6 +182,14 @@
 				<li><a href="res/images/max/0001_4.jpg" rel="external"><img src="res/images/min/0001_4.jpg" alt="Image 004" /></a></li>
         	</ul>
         </div>
+        <fieldset class="ui-grid-a">
+    		<div class="ui-block-a">
+    			<button onClock="getSigthtPosition()">Показать</button>
+    		</div>
+    		<div class="ui-block-b">
+    			<button onClock="getRoute()">Проложить маршрут</button>
+    		</div>
+		</fieldset>
 	</div><!-- /Content -->
 	<div data-role="footer" data-position="fixed">
 		<div data-role="navbar">
