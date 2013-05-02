@@ -2,9 +2,8 @@
 <html>
 	<head>
 	<meta http-equiv="Content-type" content="text/html;charset=utf-8">
-	<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0">
-
-	<!-- Scripts section -->
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <!-- Scripts section -->
 
 	<!-- PhoneGAP -->
 	<script type="text/javascript" charset="utf-8" src="js/cordova-2.5.0.js"></script>
@@ -13,10 +12,8 @@
 	<!-- JQuery* -->
 	<script type="text/javascript" charset="utf-8" src="js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.3.0.min.js"></script>
-	<!-- klass -->
-	<script type="text/javascript" charset="utf-8" src="js/klass.min.js"></script>
-	<!-- Photoswipe -->
-	<script type="text/javascript" src="js/code.photoswipe.jquery-3.0.5.min.js"></script>
+	<!-- imageflip -->
+	<script type="text/javascript" src="js/imageflip.js"></script>
 	<!-- Application main code -->
 	<script type="text/javascript" charset="utf-8" src="js/main.js"></script>
 	<!-- Android app code -->
@@ -30,8 +27,8 @@
 
 	<!-- JQuery -->
 	<link rel="stylesheet" href="css/jquery.mobile-1.3.0.min.css" />
-	<!-- Photoswipe css file -->
-	<link rel="stylesheet" href="css/photoswipe.css" />
+	<!-- imageflip css file -->
+	<link rel="stylesheet" href="css/imageflip.css" />
 	<!-- Map css file -->
 	<link rel="stylesheet" href="css/map.css" />
 	<!-- loadingscreen page style -->
@@ -70,6 +67,7 @@
 					</div>
 					<div>
 						<a href="#" data-role="button" data-inline="true" data-icon="delete" onclick="app.exit()">Отмена</a>
+						<a data-icon="plus" href="#debug" data-role="button" data-inline="true">Отладка</a>
 					</div>
 				</div>
 			</div>

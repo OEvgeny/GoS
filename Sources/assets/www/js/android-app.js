@@ -26,7 +26,9 @@ var app = {
 			success: function(data) {
 				addPages(data);
 				ymaps.ready(initYM);
-				$.mobile.changePage($('#home'));
+				$.mobile.changePage('#home');
+				message("Active page is: " + $.mobile.activePage.attr("id"));
+				
 			}
 		});
 		$.mobile.showPageLoadingMsg();

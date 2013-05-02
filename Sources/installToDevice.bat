@@ -1,0 +1,1 @@
+adb install -r bin\GoS-debug.apk

@@ -3,13 +3,13 @@
 	var lon;
 	var errState = false;
 	var myPlacemark;
-	var timeoutVal = 10 * 1000 * 1000;
+	var timeoutVal = 10 * 1000;
 
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 		getGLPosition,
-		catchError/*,//todo: findout what is timeout )
-		{enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0}*/);
+		catchError,
+		{enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0});
 	} 
 	else {
 		errState = true;
@@ -24,10 +24,6 @@
 	function getYMPosition() {
 		lat = ymaps.geolocation.latitude;
 		lon = ymaps.geolocation.longitude;
-	}
-
-	function displayPosition(position) {
-		alert("Широта: " + position.coords.latitude + ", Долгота: " + position.coords.longitude);
 	}
 
 	function displayError(error) {
@@ -48,6 +44,11 @@
 	function initYM() {
 		if (errState === true)
 			getYMPosition();
+
+		if (typeof lat === "undefined" || typeof lon === "undefined") {
+			getYMPosition();
+			errState = true;
+		}
 
 		message('lat:' +lat+'<br />'+'lon:'+lon);
 
@@ -161,13 +162,14 @@
 		return false;
 	});*/
 
+
 	function updatePosition() {
 		myPlacemark.geometry.setCoordinates([lat, lon]);
 		myMap.setCenter([lat, lon], 16);
 	}
 
 	function addPages(data) {
-		$.mobile.pageContainer.append( data );
+		$.mobile.pageContainer.append(data);
 		$.mobile.hidePageLoadingMsg();
 
 		$("#childcontainer").change(
@@ -175,29 +177,8 @@
 				myMap.setType($('#childcontainer').val());
 		});
 
-		$('div.sight-page')
-					.on('pageshow', function(e){
-						var 
-							currentPage = $(e.target),
-							options = {},
-							photoSwipeInstance = $("ul.gallery a", e.target).photoSwipe(options,  currentPage.attr('id'));
-							
-						return true;
-					})
-					
-					.on('pagehide', function(e){
-						var 
-							currentPage = $(e.target),
-							photoSwipeInstance = PhotoSwipe.getInstance(currentPage.attr('id'));
+		$(".gallery").imageflip();
 
-						if (typeof photoSwipeInstance != "undefined" && photoSwipeInstance != null) {
-							PhotoSwipe.detatch(photoSwipeInstance);
-						}
-						
-						return true;
-						
-					});
-				
 	}
 
 	$(document).delegate('.ui-map-page', 'pageshow resize orientationchange', function () {
