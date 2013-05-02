@@ -3,7 +3,6 @@
 <head> 
 	<title>Main</title> 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-	<meta name="viewport" content="width=device-width, initial-scale=2.0"/>  
 </head> 
 <body>
 
@@ -157,13 +156,13 @@
 	</div><!-- /footer -->
 </div><!-- /page -->
 
-<div data-role="page" id="samplesight" class="sight-page">
+<div data-role="page" id="samplesight" class="sight-page" data-lon="34.2721" data-lat="61.81108">
 	<div data-role="header" data-position="fixed">
 		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a>
-		<h4>Парки</h4>		
+		<h4 class="sight-type">Парки</h4>		
 	</div><!-- /header -->
 	<div data-role="content">
-				<h2><img src="res/images/thumb/0001.jpg" alt=""> 
+				<h2 class="sight-name"><img src="res/images/thumb/0001.jpg" alt=""> 
         		Онежская набережная</h2>
         <p>
 Онежская набережная - одно из красивейших мест города, излюбленное место прогулок и отдыха горожан. Ее строительство началось во второй половине XX века, а в День города, 25 июня 1994 года, состоялось ее открытие.
@@ -185,10 +184,10 @@
         </div>
         <fieldset class="ui-grid-a">
     		<div class="ui-block-a">
-    			<button onClock="getSigthtPosition()">Показать</button>
+    			<a href="#map" data-role="button" onClick="getSightPosition('samplesight')">Показать</a>
     		</div>
     		<div class="ui-block-b">
-    			<button onClock="getRoute()">Проложить маршрут</button>
+    			<a href="#map" data-role="button" onClick="getRoute('samplesight')">Проложить маршрут</a>
     		</div>
 		</fieldset>
 	</div><!-- /Content -->

@@ -3,6 +3,7 @@
 	var lon;
 	var errState = false;
 	var myPlacemark;
+	var myRouter;
 	var timeoutVal = 10 * 1000;
 
 	if (navigator.geolocation) {
@@ -118,50 +119,47 @@
 			balloonContent: ymaps.geolocation.city,
 			balloonContentFooter: ymaps.geolocation.region
 			});
-			myMap.geoObjects.add(myPlacemark);
-		}
+		myMap.geoObjects.add(myPlacemark);
 
-		
-		function resizeMap() {
-			document.getElementById('map-obj').style.height = ($.mobile.getScreenHeight() - 101)+'px';
-			myMap.container.fitToViewport();
-		}
+		message('Error state: ' + errState);
+	}
 
-		/*
-		function maxHeight() {
-		var h = $('div[data-role="header"]').outerHeight(true);
-		var f = $('div[data-role="footer"]').outerHeight(true);
-		var w = $(window).height();
-		var c = $('div[data-role="content"]');
-		var c_h = c.height();
-		var c_oh = c.outerHeight(true);
-		var c_new = w - h - f - c_oh + c_h;
-		var total = h + f + c_oh;
-		if (c_h<c.get(0).scrollHeight) {
-	c.height(c.get(0).scrollHeight);
-		}
-		else {
-	c.height(c_new);
-		}
-		}
-	*/
+	function addSightToMap(id) {
+		var s = $('#' + id);
+		sightPlacemark = new ymaps.Placemark([s.attr("data-lat"), s.attr("data-lon")], {
+			balloonContentHeader: s.find('.sight-name').html(),
+			balloonContent: s.find('.sight-type').html(),
+			balloonContentFooter: '<a href="#' + id + '">Информация</a>'
+		});
+		myMap.geoObjects.add(sightPlacemark);
+		return sightPlacemark;
+	}
 
-		/*var clickOk = true;
-	$('#wai').on('vclick', function () {
-		if (clickOk === true) {
-	clickOk = false;
-	setTimeout(function() {
-		clickOk = true;
-	}, 400);
-	alert('It works!');
-	//myMap.geoObjects.remove(myPlacemark)
-	myPlacemark.geometry.setCoordinates([lat, lon]);
-	myMap.setCenter([lat, lon], 16);
-	//myPlacemark
-		}
-		return false;
-	});*/
+	function getSightPosition(id) {
+		sp = addSightToMap(id);
+		myMap.setCenter(sp.geometry.getCoordinates(), 16);
+	}
 
+	function getRoute(id) {
+		//var sp = addSightToMap(id);
+		updatePosition();
+		var s = $('#' + id);
+		myRouter = ymaps.route([[lat,lon], [s.attr("data-lat"), s.attr("data-lon")]], {
+			mapStateAutoApply: true 
+		});
+
+		myRouter.then(function(route) {
+    		// Добавление маршрута на карту
+			myMap.geoObjects.add(route);
+    	});
+	}
+
+	function resizeMap() {
+		$('#map-obj').css({
+			'height' : ($.mobile.getScreenHeight() - 101)+'px'
+		});
+		myMap.container.fitToViewport();
+	}
 
 	function updatePosition() {
 		myPlacemark.geometry.setCoordinates([lat, lon]);
@@ -178,7 +176,6 @@
 		});
 
 		$(".gallery").imageflip();
-
 	}
 
 	$(document).delegate('.ui-map-page', 'pageshow resize orientationchange', function () {
