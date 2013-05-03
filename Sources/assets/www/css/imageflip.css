@@ -1,7 +1,6 @@
 .gallery		{list-style:none; padding:0px; margin:0px}
 .gallery li	{list-style:none; padding:2px; margin:2px; border:1px solid #999; float:left}
 
-/* imageflip CSS. Copy & Paste this to your CSS file */
 #imageflippage	{background-color:#000; margin:0px; padding:0px; border:none; height:100%; width:100%}
 #tadcontent		{padding:0px; margin:0px; position:relative; background:#000; height:100%; width:100%;}
 #imageflipimg	{vertical-align:middle; height:100%; width:100%; z-index:98; background-position:center; background-size:contain; text-align:center; background-repeat:no-repeat }

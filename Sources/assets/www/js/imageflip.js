@@ -1,17 +1,17 @@
-// imageflip. Lightweight JQuery Mobile Image Gallery 
+// imageflip. Lightweight JQuery Mobile Image Gallery
 // Saman W Jayasekara : sam@cflove.org : www.cflove.org
-// 15 Sap 2012 - Ver 0.1 - MIT License 
+// 15 Sap 2012 - Ver 0.1 - MIT License
 // Olonov Evgeny : eolonov@gmail.com
-// 02 May 2013 - Ver 0.2 - MIT License 
+// 02 May 2013 - Ver 0.2 - MIT License
 (function ($) {
     $.fn.imageflip = function () {
-        var loadingimg = 'js/images/loading.gif';
-        var i   = $("<img />").attr('src',loadingimg).load() //pre load the loading image
+        var loadingimg = './css/images/loader.gif';
+        var i   = $("<img />").attr('src',loadingimg).load(); //pre load the loading image
         var g = $(this);
 
            $('body').append('<div data-role="page" id="imageflippage" data-theme="c" data-title=""><div data-role="content" id="tadcontent"><div id="imageflipimg"></div><div id="imagefliper"></div><div id="tadinfo"></div><div id="tadnavi" data-role="navbar"><ul><li><a href="" data-iconpos="notext" data-rel="back" data-role="button" data-icon="delete" id="tadclose"></a></li><li><a href="" data-iconpos="notext" data-role="button" data-icon="arrow-l" id="tadbk"></a></li><li><a href="" data-iconpos="notext" data-role="button" data-icon="arrow-r" id="tadnxt"></a></li></ui></div></div></div>')
            //$.mobile.initializePage();
-                 
+
            $('#imageflippage').on('pagehide', function () {
                 $('#imageflipimg').css({
                     'background-image': 'none'
@@ -19,12 +19,12 @@
             });
             $('#imagefliper').click(function (e) { //show hide the navi bar/image info
                 if ($('#tadnavi').is(':visible')) {
-                    $('#tadnavi').slideUp('slow');
-                    $('#tadinfo:visible').slideUp('slow')
+                    $('#tadnavi').slideUp(100);
+                    $('#tadinfo:visible').slideUp(100)
                 } else {
-                    $('#tadnavi').slideDown('slow');
+                    $('#tadnavi').slideDown(100);
                     if ($('#tadinfo').html() !== '') {
-                        $('#tadinfo').slideDown('slow')
+                        $('#tadinfo').slideDown(100)
                     }
                 };
             }).swipeleft(function () {
@@ -59,9 +59,9 @@
             var title = $(this).find('a').attr('title');
 
             if (bimg !== '') {
-                // create a layer for big image 
+                // create a layer for big image
                 if ($('#imageflippage').length) {
-                 
+
                 }
 
                 $('#imageflipimg').fadeOut('fast', function () { //fade the current image
@@ -69,15 +69,15 @@
                     $('#imageflipimg').html('<img src="' + loadingimg + '" style="margin-top:120px">') // show loading image
                     $("<img />").attr('src', bimg).load(function (e) { // image lading
                         if (typeof title !== 'undefined' && title !== false && title !== '') { // handle image title info
-                            $('#tadinfo').html(title).slideDown('slow', function () {
-                                $('#tadinfo:visible').delay('4000').slideUp('slow')
+                            $('#tadinfo').html(title).slideDown(100, function () {
+                                $('#tadinfo:visible').delay('1000').slideUp(100)
                             })
                         } else {
                             $('#tadinfo').html('')
                         };
                         $('#imageflipimg').css({
                             'background-image': 'url(' + bimg + ')'
-                        }).html('').fadeIn('slow') //add image, clear loading image
+                        }).html('').fadeIn(100) //add image, clear loading image
                     });
                 });
                 if (!$("#imageflippage").is(':visible')) {
