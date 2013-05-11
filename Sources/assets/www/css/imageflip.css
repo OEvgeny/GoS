@@ -1,5 +1,6 @@
-.gallery		{list-style:none; padding:0px; margin:0px}
-.gallery li	{list-style:none; padding:2px; margin:2px; border:1px solid #999; float:left}
+.gallery		{list-style:none; padding:0px; margin:0px; clear:both; width:100%}
+.gallery li	{list-style:none; padding:2px; margin:2px; border:1px solid #999; float:left; vertical-align: center; display: inline;}
+.ui-collapsible + fieldset {clear:both}
 
 #imageflippage	{background-color:#000; margin:0px; padding:0px; border:none; height:100%; width:100%}
 #tadcontent		{padding:0px; margin:0px; position:relative; background:#000; height:100%; width:100%;}

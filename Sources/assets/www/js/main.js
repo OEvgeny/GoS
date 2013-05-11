@@ -11,11 +11,11 @@
 		getGLPosition,
 		catchError,
 		{enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0});
-	} 
+	}
 	else {
 		errState = true;
 	}
-	
+
 
 	function getGLPosition(position) {
 		lat = position.coords.latitude;
@@ -145,7 +145,7 @@
 		updatePosition();
 		var s = $('#' + id);
 		myRouter = ymaps.route([[lat,lon], [s.attr("data-lat"), s.attr("data-lon")]], {
-			mapStateAutoApply: true 
+			mapStateAutoApply: true
 		});
 
 		myRouter.then(function(route) {
@@ -190,6 +190,6 @@
 	}
 
 	//debug
-	function message(errText) {		
+	function message(errText) {
 		$('<p>'+errText+'</p>').appendTo('#debuglog');
 	}
