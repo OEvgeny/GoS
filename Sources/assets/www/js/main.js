@@ -48,7 +48,13 @@
 
 		if (typeof lat === "undefined" || typeof lon === "undefined") {
 			getYMPosition();
-			errState = true;
+		//	errState = true;
+		}
+
+                if (typeof lat === "undefined" || typeof lon === "undefined") {
+			alert("Серис недоступен. Проверьте подключение к сети. Приложение будет закрыто.");
+			message('No connection to yandex maps.');
+			app.exit();
 		}
 
 		message('lat:' +lat+'<br />'+'lon:'+lon);
@@ -126,11 +132,13 @@
 
 	function addSightToMap(id) {
 		var s = $('#' + id);
+		message("sightId: " + s);
 		sightPlacemark = new ymaps.Placemark([s.attr("data-lat"), s.attr("data-lon")], {
 			balloonContentHeader: s.find('.sight-name').html(),
 			balloonContent: s.find('.sight-type').html(),
-			balloonContentFooter: '<a href="#' + id + '">Информация</a>'
+//			balloonContentFooter: '<a href="debug.html#' + id + '">Информация</a>'
 		});
+		message("sightLat: " + s.attr("data-lat"));
 		myMap.geoObjects.add(sightPlacemark);
 		return sightPlacemark;
 	}
@@ -193,3 +201,27 @@
 	function message(errText) {
 		$('<p>'+errText+'</p>').appendTo('#debuglog');
 	}
+	
+
+ var num = 10; //чтобы знать с какой записи вытаскивать данные
+ function lol() {
+      $.ajax({
+        url: "action.php",
+        type: "GET",
+        data: {"num": num},
+        dataType: "html",
+        cache: false,
+        complete: function(){
+		$("#sightlist").listview('refresh');
+        },
+        success: function(response){
+          if(response != 0){
+            $("#sightlist").append(response);
+            num = num + 10;
+            if($('#the_end').length > 0) {
+              $("#load").hide();
+            }
+          }
+        }
+      });
+    }

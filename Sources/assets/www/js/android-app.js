@@ -28,7 +28,6 @@ var app = {
 				ymaps.ready(initYM);
 				$.mobile.changePage('#home');
 				message("Active page is: " + $.mobile.activePage.attr("id"));
-				
 			}
 		});
 		$.mobile.showPageLoadingMsg();
@@ -44,6 +43,8 @@ var app = {
 
 	onDeviceOffline: function () {
 		app.showElement('deviceoffline');
+		alert("Сервис недоступен. Пожалуйста проверьте подключение к сети. Приложение будет закрыто.");
+		app.exit();
 	},
 
 	showElement: function (id) {

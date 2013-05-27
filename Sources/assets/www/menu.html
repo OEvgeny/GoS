@@ -8,7 +8,7 @@
 
 <div data-role="page" id="home">
 	<div data-role="header" data-position="fixed">
-		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a><h3>Главное меню</h3>
+		<h3>Главное меню</h3>
 	</div><!-- /header -->
 	<div data-role="content">
 		<div class="small-logo">
@@ -63,28 +63,26 @@
 
 <div data-role="page" id="sights">
 	<div data-role="header" data-position="fixed">
-		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a>
 		<h3>Достопримечательности</h3>
-		<a href="#" data-role="button" class="bydist" onclick="toggileByDestination();">@</a>
 	</div><!-- /header -->
 	<div data-role="content">
 			<div data-role="navbar">
 				<ul>
 					<li><a data-icon="bars" class="ui-btn-active ui-state-persist" 	href="#">По типу</a></li>
-					<li><a data-icon="bars" href="#pregenerated">Все</a></li>
+					<li><a data-icon="bars" href="http://kappa.cs.karelia.ru/~pilinovi/gos/list.php?section=0">Все</a></li>
 				</ul>
 			</div><!-- /navbar -->
 		<div data-role="controlgroup">
-				<a href="pregenerated.php" data-icon="arrow-r" data-iconpos="right" data-role="button">Памятники</a>
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Парки</a>
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Музеи</a>
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Религиозные</a>
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Театры</a>
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Фонтаны</a>
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Выставки</a>
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Дома</a>
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button">Стадионы</a>
-				<a href="#" data-icon="arrow-r" data-iconpos="right" data-role="button" onClick="message('It Works');">Прочее</a>
+				<a href="http://kappa.cs.karelia.ru/~pilinovi/gos/creating_page.php?sight=1" data-icon="arrow-r" data-iconpos="right" data-role="button">Онежская набережная</a>
+				<a href="http://kappa.cs.karelia.ru/~pilinovi/gos/list.php?section=1" data-icon="arrow-r" data-iconpos="right" data-role="button">Памятники</a>
+				<a href="http://kappa.cs.karelia.ru/~pilinovi/gos/list.php?section=2" data-icon="arrow-r" data-iconpos="right" data-role="button">Парки</a>
+				<a href="http://kappa.cs.karelia.ru/~pilinovi/gos/list.php?section=3" data-icon="arrow-r" data-iconpos="right" data-role="button">Музеи</a>
+				<a href="http://kappa.cs.karelia.ru/~pilinovi/gos/list.php?section=4" data-icon="arrow-r" data-iconpos="right" data-role="button">Религиозные</a>
+				<a href="http://kappa.cs.karelia.ru/~pilinovi/gos/list.php?section=5" data-icon="arrow-r" data-iconpos="right" data-role="button">Театры</a>
+				<a href="http://kappa.cs.karelia.ru/~pilinovi/gos/list.php?section=6" data-icon="arrow-r" data-iconpos="right" data-role="button">Фонтаны</a>
+				<a href="http://kappa.cs.karelia.ru/~pilinovi/gos/list.php?section=7" data-icon="arrow-r" data-iconpos="right" data-role="button">Выставки</a>
+				<a href="http://kappa.cs.karelia.ru/~pilinovi/gos/list.php?section=8" data-icon="arrow-r" data-iconpos="right" data-role="button">Дома</a>
+				<a href="http://kappa.cs.karelia.ru/~pilinovi/gos/list.php?section=9" data-icon="arrow-r" data-iconpos="right" data-role="button" onClick="message('It Works');">Прочее</a>
 			</div><!-- /Controlgroup -->
 	</div><!-- /Content -->
 	<div data-role="footer" data-position="fixed">
@@ -98,108 +96,5 @@
 	</div><!-- /footer -->
 </div><!-- /page -->
 
-
-<div data-role="page" id="pregenerated" >
-	<div data-role="header" data-position="fixed">
-		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a>
-		<h3>Достопримечательности</h3>
-		<a href="#" data-role="button" class="bydist" onclick="toggileByDestination();">@</a>
-	</div><!-- /header -->
-	<div data-role="content">
-		<div data-role="navbar">
-			<ul>
-				<li><a data-icon="bars" href="#sights">По типу</a></li>
-				<li><a data-icon="bars" class="ui-btn-active ui-state-persist"href="#">Все</a></li>
-			</ul>
-		</div><!-- /navbar -->
-		<ul data-role="listview" style="padding-top:7%">
-            <li><a href="#samplesight">
-            	<img src="res/images/thumb/0001.jpg" alt="">
-            	<h2>Онежская набережная</h2>
-            	<p>Парки</p>
-            </a></li>
-            <li><a href="#f">
-            	<img src="res/images/thumb/0002.jpg" alt="">
-            	<h2>Невский собор</h2>
-            	<p>Религиозные</p>
-            </a></li>
-            <li><a href="#">
-            	<img src="res/images/thumb/0003.jpg" alt="">
-            	<h2>Национальный театр</h2>
-            	<p>Театры</p>
-            </a></li>
-            <li><a href="#">
-            	<img src="res/images/thumb/0004.jpg" alt="">
-            	<h2>Стадион Юность</h2>
-            	<p>Стадионы</p>
-            </a></li>
-            <li><a href="#">
-            	<img src="res/images/thumb/0005.jpg" alt="">
-            	<h2>Русский драматический театр</h2>
-            	<p>Театры</p>
-            </a></li>
-            <li><a href="#">
-            	<img src="res/images/thumb/0006.jpg" alt="">
-            	<h2>Городской выставочный зал</h2>
-            	<p>Выставки</p>
-            </a></li>
-        </ul>
-	</div><!-- /Content -->
-	<div data-role="footer" data-position="fixed">
-		<div data-role="navbar">
-		<ul>
-			<li><a data-icon="home" href="#home">Меню</a></li>
-			<li><a data-icon="grid" href="#map">Карта</a></li>
-			<li><a data-icon="bars" class="ui-btn-active ui-state-persist" href="#">Достопримечательности</a></li>
-		</ul>
-		</div><!-- /navbar -->
-	</div><!-- /footer -->
-</div><!-- /page -->
-
-<div data-role="page" id="samplesight" class="sight-page" data-lon="34.2721" data-lat="61.81108">
-	<div data-role="header" data-position="fixed">
-		<a href="#" data-rel="back" data-iconpos="notext" data-icon="arrow-l"></a>
-		<h4 class="sight-type">Парки</h4>
-	</div><!-- /header -->
-	<div data-role="content">
-				<h2 class="sight-name"><img src="res/images/thumb/0001.jpg" alt="">
-        		Онежская набережная</h2>
-        <p>
-Онежская набережная - одно из красивейших мест города, излюбленное место прогулок и отдыха горожан. Ее строительство началось во второй половине XX века, а в День города, 25 июня 1994 года, состоялось ее открытие.
-		</p>
-		<p>
-Слева от Мэрии стоит Петровская ротонда. Вдоль набережной выстроились в ряд памятники - подарки от городов-побратимов Петрозаводска. Традиционно появление нового монумента происходит в День города (последняя суббота июня). <br>
-		</p>
-		<p>
-Первым памятником, открывшим "скульптурный обмен" между Петрозаводском и его побратимами, стала стальная конструкция "Рыбаки", подаренная американским городом Дулутом в 1991 году. Его автор Рафаель Консуэгр выиграл в Америке конкурс на лучшую скульптуру для Петрозаводска.
-        </p>
-        <div data-role="collapsible">
-        	<h4>Фотографии</h4>
-        	<ul class="gallery">
-        		<li><a href="res/images/max/0001_1.jpg"><img src="res/images/min/0001_1.jpg" alt="Image 001" /></a></li>
-				<li><a href="res/images/max/0001_2.jpg" rel="external"><img src="res/images/min/0001_2.jpg" alt="Image 002" /></a></li>
-				<li><a href="res/images/max/0001_3.jpg" rel="external"><img src="res/images/min/0001_3.jpg" alt="Image 003" /></a></li>
-				<li><a href="res/images/max/0001_4.jpg" rel="external"><img src="res/images/min/0001_4.jpg" alt="Image 004" /></a></li>
-        	</ul>
-        </div>
-        <fieldset class="ui-grid-a">
-    		<div class="ui-block-a">
-    			<a href="#map" data-role="button" onClick="getSightPosition('samplesight')">Показать</a>
-    		</div>
-    		<div class="ui-block-b">
-    			<a href="#map" data-role="button" onClick="getRoute('samplesight')">Проложить маршрут</a>
-    		</div>
-		</fieldset>
-	</div><!-- /Content -->
-	<div data-role="footer" data-position="fixed">
-		<div data-role="navbar">
-		<ul>
-			<li><a data-icon="home" href="#home">Меню</a></li>
-			<li><a data-icon="grid" href="#map">Карта</a></li>
-			<li><a data-icon="bars" class="ui-btn-active ui-state-persist" href="#">Достопримечательности</a></li>
-		</ul>
-		</div><!-- /navbar -->
-	</div><!-- /footer -->
-</div><!-- /page -->
 </body>
 </html>
