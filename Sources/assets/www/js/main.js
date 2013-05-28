@@ -4,6 +4,8 @@
 	var errState = false;
 	var myPlacemark;
 	var myRouter;
+	var lastRoute = null;
+	var lastSight = null;
 	var timeoutVal = 10 * 1000;
 
 	if (navigator.geolocation) {
@@ -131,9 +133,14 @@
 	}
 
 	function addSightToMap(id) {
+		if (lastSight != null) {
+			myMap.geoObjects.remove(lastSight);
+			lastSight = null;
+		}
+
 		var s = $('#' + id);
 		message("sightId: " + s);
-		sightPlacemark = new ymaps.Placemark([s.attr("data-lat"), s.attr("data-lon")], {
+		lastSight = new ymaps.Placemark([s.attr("data-lat"), s.attr("data-lon")], {
 			balloonContentHeader: s.find('.sight-name').html(),
 			balloonContent: s.find('.sight-type').html(),
 //			balloonContentFooter: '<a href="debug.html#' + id + '">Информация</a>'
@@ -150,6 +157,10 @@
 
 	function getRoute(id) {
 		//var sp = addSightToMap(id);
+		if (lastRoute != null) {
+			myMap.geoObjects.remove(lastRoute);
+			lastRoute = null;
+		}
 		updatePosition();
 		var s = $('#' + id);
 		myRouter = ymaps.route([[lat,lon], [s.attr("data-lat"), s.attr("data-lon")]], {
@@ -157,9 +168,10 @@
 		});
 
 		myRouter.then(function(route) {
-    		// Добавление маршрута на карту
+			// Добавление маршрута на карту
+			lastRoute = route;
 			myMap.geoObjects.add(route);
-    	});
+		});
 	}
 
 	function resizeMap() {
@@ -183,19 +195,12 @@
 				myMap.setType($('#childcontainer').val());
 		});
 
-		$(".gallery").imageflip();
+		//$(".gallery").imageflip();
 	}
 
 	$(document).delegate('.ui-map-page', 'pageshow resize orientationchange', function () {
 			resizeMap();
 	});
-
-	function toggileByDestination() {
-		if ($('.bydist').hasClass('ui-btn-active'))
-			 $('.bydist').removeClass('ui-btn-active');
-		 else
-			$('.bydist').addClass('ui-btn-active');
-	}
 
 	//debug
 	function message(errText) {
@@ -203,8 +208,8 @@
 	}
 	
 
- var num = 10; //чтобы знать с какой записи вытаскивать данные
- function lol() {
+ 	var num = 10; //чтобы знать с какой записи вытаскивать данные
+ 	function lol() {
       $.ajax({
         url: "action.php",
         type: "GET",
