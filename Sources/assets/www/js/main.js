@@ -4,9 +4,7 @@
 	var errState = false;
 	var myPlacemark;
 	var myRouter;
-	var lastRoute = null;
-	var lastSight = null;
-	var timeoutVal = 10 * 1000;
+	var timeoutVal = 5 * 1000;
 
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
@@ -133,44 +131,59 @@
 	}
 
 	function addSightToMap(id) {
-		if (lastSight != null) {
-			myMap.geoObjects.remove(lastSight);
-			lastSight = null;
-		}
-
 		var s = $('#' + id);
 		message("sightId: " + s);
-		lastSight = new ymaps.Placemark([s.attr("data-lat"), s.attr("data-lon")], {
+		sightPlacemark = new ymaps.Placemark([s.attr("data-lat"), s.attr("data-lon")], {
 			balloonContentHeader: s.find('.sight-name').html(),
 			balloonContent: s.find('.sight-type').html(),
 //			balloonContentFooter: '<a href="debug.html#' + id + '">Информация</a>'
 		});
 		message("sightLat: " + s.attr("data-lat"));
 		myMap.geoObjects.add(sightPlacemark);
+		lastSight = sightPlacemark;
 		return sightPlacemark;
 	}
 
 	function getSightPosition(id) {
+		if (getSightPosition.lastSight != null) {
+			myMap.geoObjects.remove(getSightPosition.lastSight);
+			getSightPosition.lastSight = null;
+		}
 		sp = addSightToMap(id);
 		myMap.setCenter(sp.geometry.getCoordinates(), 16);
+		getSightPosition.lastSight = sp;
 	}
 
 	function getRoute(id) {
-		//var sp = addSightToMap(id);
-		if (lastRoute != null) {
-			myMap.geoObjects.remove(lastRoute);
-			lastRoute = null;
+		if (getRoute.lastRoute != null) {
+			myMap.geoObjects.remove(getRoute.lastRoute);
+			getRoute.lastRoute = null;
 		}
+		if (getRoute.lastSight != null) {
+			myMap.geoObjects.remove(getRoute.lastSight);
+			getRoute.lastSight = null;
+		}
+		var sp = addSightToMap(id);
 		updatePosition();
-		var s = $('#' + id);
-		myRouter = ymaps.route([[lat,lon], [s.attr("data-lat"), s.attr("data-lon")]], {
-			mapStateAutoApply: true
-		});
 
-		myRouter.then(function(route) {
+		start = myPlacemark.geometry.getCoordinates();
+		finish = sp.geometry.getCoordinates();
+
+		//var s = $('#' + id);
+		//ymaps.route([[lat,lon], [s.attr("data-lat"), s.attr("data-lon")]], {
+		ymaps.route([start, finish])
+		.then(function(route) {
 			// Добавление маршрута на карту
-			lastRoute = route;
+			//myMap.setBounds(route.geometry.getBounds()); //f.ck u yandexmaps                      	
+			myMap.setBounds(myMap.geoObjects.getBounds()/*, { checkZoomRange: true }*/);
+			route = route.getPaths();
+			//route.options.set('mapStateAutoApply', true);
+			route.options.set({ strokeWidth: 4, strokeColor: '020242ff', opacity: 0.5 });
+			getRoute.lastRoute = route;
 			myMap.geoObjects.add(route);
+			//myMap.setCenter(sp.geometry.getCoordinates(), 13);
+			//sp.balloon.open();
+			getRoute.lastSight = sp;
 		});
 	}
 
@@ -196,7 +209,7 @@
 		});
 
 		//$(".gallery").imageflip();
-	}
+	}	
 
 	$(document).delegate('.ui-map-page', 'pageshow resize orientationchange', function () {
 			resizeMap();
@@ -209,7 +222,7 @@
 	
 
  	var num = 10; //чтобы знать с какой записи вытаскивать данные
- 	function lol() {
+ 	function loadList() {
       $.ajax({
         url: "action.php",
         type: "GET",
